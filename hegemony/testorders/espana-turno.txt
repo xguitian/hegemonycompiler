@@ -1,0 +1,6 @@
+E Istria M Venezia M
+E Viena A Tirol
+F Mar del Norte M Mar Báltico
+PP 5 Palatinado
+G Francia
+P España
