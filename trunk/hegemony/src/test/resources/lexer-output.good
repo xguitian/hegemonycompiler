@@ -1,4 +1,3 @@
-Lexing [order_test.txt]
 line:1 col:1 --E--ARMY--
 token: line 1, column 1, sym: 5
 line:1 col:3 --Istria--WORD--
