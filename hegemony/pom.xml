@@ -56,23 +56,19 @@
 			<url>http://jflex.sourceforge.net/repo/</url>
 		</pluginRepository>
 	</pluginRepositories>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>3.8.2</version>
-				<scope>test</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-                <dependencies>
+        <dependencies>
+                        <dependency>
+                                <groupId>junit</groupId>
+                                <artifactId>junit</artifactId>
+                                <version>3.8.2</version>
+                                <scope>test</scope>
+                        </dependency>
                         <dependency>
                                 <groupId>net.sf.squirrel-sql.thirdparty-non-maven</groupId>
                                 <artifactId>java-cup</artifactId>
                                 <version>0.11a</version>
                         </dependency>
-                </dependencies>
+        </dependencies>
 
 </project>
 
