@@ -133,7 +133,7 @@ public class Hegemony
       		}
       		catch (IllegalCharactersException e)
       		{
-      			System.out.println("fichero con errores de sintaxis!");
+      			System.out.println("fichero con caracteres ilegales!");
       			playerErrors.put(player, Util.convertIllegalCharacterErrorsToString(e.getErrors()));
       			continue;
       		}
