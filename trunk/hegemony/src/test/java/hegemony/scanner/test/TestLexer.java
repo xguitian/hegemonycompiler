@@ -10,7 +10,7 @@ import java.io.PrintStream;
 import cup.*;
 import hegemony.scanner.HegemonyScanner;
 import hegemony.scanner.UnicodeEscapes;
-import hegemony.exception.IllegalCharacterException;
+import hegemony.exception.IllegalCharactersException;
 
 import java_cup.runtime.Symbol;
 
@@ -47,7 +47,7 @@ public class TestLexer extends TestCase {
     } while (s.sym != sym.EOF);
         
     System.out.println("No errors.");
-   } catch (IllegalCharacterException e)
+   } catch (IllegalCharactersException e)
    {
 	 System.out.println("Illegal character error.");
    }

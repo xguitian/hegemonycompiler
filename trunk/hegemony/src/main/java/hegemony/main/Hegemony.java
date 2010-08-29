@@ -141,7 +141,7 @@ public class Hegemony
       		{
       			System.out.println("fichero con errores de sintaxis!");
       			errors = new ArrayList<String>();
-      			errors.add(e.getMessage());
+      			errors.add("Error fatal de sintaxis en la linea " + e.getError().getLine());
       			playerErrors.put(player, errors);
       			continue;
       		}
