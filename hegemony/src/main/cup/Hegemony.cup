@@ -4,6 +4,7 @@ import java_cup.runtime.*;
 import java.util.List;
 import java.util.ArrayList;
 import hegemony.main.HegemonyOrder;
+import hegemony.main.HegemonyOrder.ErrorType;
 import hegemony.main.OrdersFile;
 import hegemony.scanner.HegemonySymbol;
 import hegemony.exception.ParserFatalErrorException;
@@ -33,7 +34,7 @@ terminal	WORD, NUMBER;
 terminal	ARMY, NAVY;
 terminal	MOVE, SUPPORT, POLITIC_POINTS, DECLARE_WAR, DECLARE_PEACE;
 
-non terminal file, order, unit, name, politic_order, troop_order, diplomatic_order;
+non terminal file, order, unit, name, politic_order, troop_order, diplomatic_order, valid_order, erroneous_order;
 
 /*
 non terminal OrdersFile file;
@@ -50,9 +51,11 @@ file ::= order:o EOL file:f					{: RESULT = new OrdersFile((OrdersFile) f, ((Heg
        | EOL								/* do nothing */
        ;
 
-order ::= unit:u name:s troop_order:a name:t	{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, (HegemonyOrder.Unit) u, (String) s, (String) t); :} 
-        | politic_order:a NUMBER:n name:t		{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, (String) t, (Integer) n); :}
-        | diplomatic_order:a name:t				{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, (String) t); :}
+order ::= valid_order | erroneous_order;
+
+valid_order ::= unit:u name:s troop_order:a name:t	{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, (HegemonyOrder.Unit) u, (String) s, (String) t, ErrorType.VALID_ORDER); :} 
+        | politic_order:a NUMBER:n name:t		{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, (String) t, (Integer) n, ErrorType.VALID_ORDER); :}
+        | diplomatic_order:a name:t				{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, (String) t, ErrorType.VALID_ORDER); :}
         ;
 
 name ::= WORD:w								{: RESULT = (String) w; :}
@@ -74,3 +77,30 @@ diplomatic_order ::= DECLARE_WAR			{: RESULT = HegemonyOrder.OrderType.DECLARE_W
                    | DECLARE_PEACE			{: RESULT = HegemonyOrder.OrderType.DECLARE_PEACE; :}
                    ;
 
+
+/*** Typical errors ***/
+erroneous_order ::= 
+	
+	  /* Politic order instead of troop order */
+	  unit:u name:s politic_order:a name:t 		{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, (HegemonyOrder.Unit) u, (String) s, (String) t, ErrorType.WRONG_ORDER_TYPE); :} 
+	  /* Diplomatic order instead of troop order */
+	| unit:u name:s diplomatic_order:a name:t 	{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, (HegemonyOrder.Unit) u, (String) s, (String) t, ErrorType.WRONG_ORDER_TYPE); :} 
+	  /* Troop order instead of politic order */
+    | troop_order:a NUMBER:n name:t				{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, (String) t, (Integer) n, ErrorType.WRONG_ORDER_TYPE); :}
+	  /* Diplomatic order instead of politic order */
+    | diplomatic_order:a NUMBER:n name:t		{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, (String) t, (Integer) n, ErrorType.WRONG_ORDER_TYPE); :}
+	  /* Troop order instead of diplomatic order */
+    | troop_order:a name:t						{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, (String) t, ErrorType.WRONG_ORDER_TYPE); :}
+	  /* Missing unit */
+	| name:s troop_order:a name:t 				{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, null, (String) s, (String) t, ErrorType.MISSING_UNIT); :} 
+	  /* Missing amount */
+    | politic_order:a name:t					{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, (String) t, (Integer) 0, ErrorType.MISSING_AMOUNT); :}
+	  /* Missing target */
+	| unit:u name:s troop_order:a 				{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, (HegemonyOrder.Unit) u, (String) s, null, ErrorType.MISSING_TARGET); :} 
+	  /* Missing target */
+    | politic_order:a NUMBER:n					{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, null, (Integer) n, ErrorType.MISSING_TARGET); :}
+	  /* Missing target */
+    | diplomatic_order:a						{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, null, ErrorType.MISSING_TARGET); :}
+	  /* Missing source */
+	| unit:u troop_order:a name:t				{: RESULT = new HegemonyOrder((HegemonyOrder.OrderType) a, (HegemonyOrder.Unit) u, null, (String) t, ErrorType.MISSING_SOURCE); :}
+	;
