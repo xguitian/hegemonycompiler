@@ -11,6 +11,9 @@
 		Hegemony PBeM Turn Compiler
 	</description>
 	<packaging>jar</packaging>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<build>
 		<plugins>
 			<!-- Compiler configuration -->

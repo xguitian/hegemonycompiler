@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import hegemony.main.HegemonyOrder;
 import hegemony.main.OrdersFile;
 import hegemony.scanner.HegemonySymbol;
+import hegemony.exception.ParserFatalErrorException;
 
 parser code  {:
 
@@ -20,9 +21,10 @@ parser code  {:
     System.out.println(m);
   }
    
-  public void report_fatal_error(String message, Object info) {
+  public void report_fatal_error(String message, Object info) 
+  	throws ParserFatalErrorException {
     report_error(message, info);
-    throw new RuntimeException("Fatal Syntax Error");
+    throw new ParserFatalErrorException("Fatal Syntax Error");
   }
 :};
 

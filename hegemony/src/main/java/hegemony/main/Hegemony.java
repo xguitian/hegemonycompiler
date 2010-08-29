@@ -1,6 +1,7 @@
 package hegemony.main;
 
-import hegemony.exception.IllegalCharacterException;
+import hegemony.exception.IllegalCharactersException;
+import hegemony.exception.ParserFatalErrorException;
 import hegemony.main.HegemonyCountry.PowerStatus;
 import hegemony.main.HegemonyOrder.Unit;
 import hegemony.main.HegemonyTerritory.Territory;
@@ -130,12 +131,17 @@ public class Hegemony
       			playerOrders.put(player, null);
       			continue;
       		}
-      		catch (IllegalCharacterException e)
+      		catch (IllegalCharactersException e)
+      		{
+      			System.out.println("fichero con errores de sintaxis!");
+      			playerErrors.put(player, Util.convertIllegalCharacterErrorsToString(e.getErrors()));
+      			continue;
+      		}
+      		catch (ParserFatalErrorException e)
       		{
       			System.out.println("fichero con errores de sintaxis!");
       			errors = new ArrayList<String>();
-      			errors.add("Caracter ilegal \"" + e.getIllegalCharacter() + "\" en la linea " + e.getLine() +
-      					", columna " + e.getColumn());
+      			errors.add(e.getMessage());
       			playerErrors.put(player, errors);
       			continue;
       		}
