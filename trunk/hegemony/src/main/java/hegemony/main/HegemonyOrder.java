@@ -16,7 +16,8 @@ public class HegemonyOrder
 		public String symbol() { return symbol; }
 	}
 	
-	public enum OrderType {
+	public enum OrderType
+	{
 		MOVE ("M"), SUPPORT ("A"), POLITIC_POINTS ("PP"), DECLARE_WAR ("G"), DECLARE_PEACE ("P");
 	
 		private final String symbol;
@@ -29,32 +30,41 @@ public class HegemonyOrder
 		public String symbol() { return symbol; }
 	}
 	
+	public enum ErrorType
+	{
+		VALID_ORDER, WRONG_ORDER_TYPE, MISSING_UNIT, MISSING_TARGET, MISSING_AMOUNT, MISSING_SOURCE
+	}
+	
 	private OrderType orderType;
 	private Unit unit = null;
 	private String source = null;
 	private String target = null;
 	private Integer amount = null;
 	private int line;
+	private ErrorType errorType;
 
-  	public HegemonyOrder(OrderType orderType, Unit unit, String source, String target)
+  	public HegemonyOrder(OrderType orderType, Unit unit, String source, String target, ErrorType errorType)
 	{
 		this.orderType = orderType;
 		this.unit = unit;
 		this.source = source;
 		this.target = target;
+		this.errorType = errorType;
 	}
 
-  	public HegemonyOrder(OrderType orderType, String target)
+  	public HegemonyOrder(OrderType orderType, String target, ErrorType errorType)
 	{
 		this.orderType = orderType;
 		this.target = target;
+		this.errorType = errorType;
 	}
 
-  	public HegemonyOrder(OrderType orderType, String target, Integer amount)
+  	public HegemonyOrder(OrderType orderType, String target, Integer amount, ErrorType errorType)
 	{
 		this.orderType = orderType;
 		this.target = target;
 		this.amount = amount;
+		this.errorType = errorType;
 	}
 
 	public OrderType getOrderType()
@@ -101,6 +111,11 @@ public class HegemonyOrder
   	{
   		this.line = line;
   		return this;
+  	}
+  	
+  	public ErrorType getErrorType()
+  	{
+  		return errorType;
   	}
 
   	public String toString()
