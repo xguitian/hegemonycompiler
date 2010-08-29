@@ -2,7 +2,10 @@ package hegemony.scanner;
 
 import java_cup.runtime.*;
 import cup.sym;
-import hegemony.exception.IllegalCharacterException;
+import hegemony.exception.IllegalCharactersException;
+import hegemony.main.IllegalCharacterError;
+import java.util.List;
+import java.util.ArrayList;
 
 %%
 
@@ -18,10 +21,9 @@ import hegemony.exception.IllegalCharacterException;
 %cup
 %cupdebug
 
-%yylexthrow IllegalCharacterException 
+%yylexthrow IllegalCharactersException 
 
 %{
-	StringBuffer string = new StringBuffer();
   
 	private Symbol symbol(int type)
 	{
@@ -32,13 +34,24 @@ import hegemony.exception.IllegalCharacterException;
   	{
     	return new HegemonySymbol(type, yyline+1, yycolumn+1, value);
   	}
+  	
+  	private List<IllegalCharacterError> errors = new ArrayList<IllegalCharacterError>();
 
 	private void reportError(String illegalCharacter, int line, int column)
-		throws IllegalCharacterException
 	{
-		throw new IllegalCharacterException(illegalCharacter, line, column);
+		errors.add(new IllegalCharacterError(illegalCharacter, line, column));
 	}
+
+	private void checkErrors() throws IllegalCharactersException
+	{	
+		if (errors.size() > 0)
+		{
+			throw new IllegalCharactersException(errors);
+		}
+	}
+	
 %}
+
 
 /* main character classes */
 LineTerminator = \r|\n|\r\n
@@ -82,4 +95,4 @@ DeclarePeace = P
 
 /* error fallback */
 .|\n                             { reportError(yytext(), yyline + 1, yycolumn + 1); }
-<<EOF>>                          { return symbol(EOF); }
+<<EOF>>                          { checkErrors(); return symbol(EOF); }

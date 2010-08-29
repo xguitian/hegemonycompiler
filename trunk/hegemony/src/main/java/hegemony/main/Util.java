@@ -1,5 +1,8 @@
 package hegemony.main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Util
 {
 	/**
@@ -15,6 +18,19 @@ public class Util
 		normalizedName = normalizedName.replace("ú", "u");
 		normalizedName = normalizedName.replace("ñ", "n");
 		return normalizedName;
+	}
+	
+	public static List<String> convertIllegalCharacterErrorsToString (List<IllegalCharacterError> illegalCharacterErrors)
+	{
+		List<String> errors = new ArrayList<String>();
+		
+		for (IllegalCharacterError e : illegalCharacterErrors)
+		{
+			errors.add("Caracter ilegal \"" + e.getIllegalCharacter() + "\" en la línea " + e.getLine() +
+							", columna "+ e.getColumn());
+		}
+		
+		return errors;
 	}
 	
 
