@@ -7,24 +7,24 @@ import hegemony.main.HegemonyOrder;
 import hegemony.main.OrdersFile;
 import hegemony.scanner.HegemonySymbol;
 import hegemony.exception.ParserFatalErrorException;
+import hegemony.main.ParserFatalError;
 
 parser code  {:
 
   public void report_error(String message, Object info) {
-    StringBuffer m = new StringBuffer("Error ");
+//    StringBuffer m = new StringBuffer("Error ");
 
-    if (info instanceof java_cup.runtime.Symbol) 
-      m.append( "("+info.toString()+")" );
+//    if (info instanceof java_cup.runtime.Symbol) 
+//      m.append( "("+info.toString()+")" );
      
-    m.append(" : "+message);
+//    m.append(" : "+message);
    
-    System.out.println(m);
+//    System.out.println(m);
   }
    
   public void report_fatal_error(String message, Object info) 
-  	throws ParserFatalErrorException {
-    report_error(message, info);
-    throw new ParserFatalErrorException("Fatal Syntax Error");
+  		throws ParserFatalErrorException {
+    throw new ParserFatalErrorException(new ParserFatalError((HegemonySymbol) info));
   }
 :};
 

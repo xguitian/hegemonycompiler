@@ -1,11 +1,20 @@
 package hegemony.exception;
 
+import hegemony.main.ParserFatalError;
+
 
 @SuppressWarnings("serial")
 public class ParserFatalErrorException extends Exception
 {
-	public ParserFatalErrorException(String message)
+	private ParserFatalError error;
+	
+	public ParserFatalErrorException(ParserFatalError error)
 	{
-		super(message);
+		this.error = error;
 	}
+	
+	public ParserFatalError getError() {
+		return error;
+	}
+	
 }

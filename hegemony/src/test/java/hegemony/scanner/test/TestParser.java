@@ -9,7 +9,7 @@ import java.io.PrintStream;
 
 import hegemony.scanner.HegemonyScanner;
 import hegemony.scanner.UnicodeEscapes;
-import hegemony.exception.IllegalCharacterException;
+import hegemony.exception.IllegalCharactersException;
 import hegemony.main.OrdersFile;
 
 import cup.*;
@@ -46,7 +46,7 @@ public class TestParser extends TestCase {
       System.out.println("No errors.");
 
     }
-    catch (IllegalCharacterException e)
+    catch (IllegalCharactersException e)
     {
       System.out.println("Illegal character error.");
     }
