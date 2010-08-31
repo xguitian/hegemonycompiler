@@ -1,0 +1,10 @@
+E París M Burgandía
+E Bélgica M Paises Bajos
+F Marsella M Golfo de León
+F Brest M Canal Inglés
+PP 6 Palatinado
+PP 4 Países Bajos
+PP 2 Sajonia
+G España
+G Inglaterra
+P Saboya

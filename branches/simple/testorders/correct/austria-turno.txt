@@ -1,0 +1,6 @@
+E Dalmacia M Balcanes
+E Transilvania M Bessarabia
+E Viena M Baviera
+PP 5 Venecia
+PP 3 Nápoles
+

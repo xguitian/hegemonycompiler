@@ -1,0 +1,6 @@
+F Londres M Canal Inglés
+E Yorkshire G Edimburgo
+F Edimburgo M Mar del Norte
+PP 7 Dinamarca
+G Francia
+

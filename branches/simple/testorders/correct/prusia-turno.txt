@@ -1,0 +1,7 @@
+F Prusia M Mar Báltico Sur
+E Berlín M Hessen
+F Danzing M Prusia
+E Silesia M Polonia
+PP 10 Baviera
+
+

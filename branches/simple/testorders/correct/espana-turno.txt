@@ -1,0 +1,8 @@
+E Barcelona M Gascuña
+E Madrid A Cartagena
+F Mediterráneo Occidental M Mar de Tunez
+F Cartagena M Golfo de León
+PP 5 Palatinado
+PP 4 Portugal
+G Inglaterra
+
