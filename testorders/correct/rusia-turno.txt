@@ -1,0 +1,8 @@
+F San Petersburgo M Mar Báltico Norte
+E Lituania A Moscú
+G Prusia
+G Suecia
+G Turquía
+G Austria
+
+
