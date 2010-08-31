@@ -198,138 +198,118 @@ public class Hegemony
 		o = orders;
 		while (o != null)
 		{
-			switch (o.order.getErrorType())
+			switch (o.order.getOrderType())
 			{
-				case VALID_ORDER:
-					switch (o.order.getOrderType())
+				case DECLARE_PEACE:
+					if (o.order.getNormalizedTarget().equals(normalizedPlayerName))
 					{
-						case DECLARE_PEACE:
-							if (o.order.getNormalizedTarget().equals(normalizedPlayerName))
-							{
-								errors.add(o.order.prettyPrintEsp() + " -> No puede declararse la paz a sí mismo");
-							}
-							else if (countries.get((o.order.getNormalizedTarget())) == null)
-							{
-								errors.add(o.order.prettyPrintEsp() + " -> El país al que intenta declarar la paz no existe");
-							}
-						break;
-					
-						case DECLARE_WAR:
-							if (o.order.getNormalizedTarget().equals(normalizedPlayerName))
-							{
-								errors.add(o.order.prettyPrintEsp() + " -> No puede declararse la guerra a sí mismo");
-							}
-							else if (countries.get((o.order.getNormalizedTarget())) == null)
-							{
-								errors.add(o.order.prettyPrintEsp() + " -> El país al que intenta declarar la guerra no existe");
-							}
-						break;
-						
-						case POLITIC_POINTS:
-							c = countries.get(o.order.getNormalizedTarget());
-							if (c == null)
-							{
-								errors.add(o.order.prettyPrintEsp() + " -> El país en el que intenta invertir puntos políticos no existe");
-							}
-							else if (c.getPowerStatus() == PowerStatus.MAJOR)
-							{
-								errors.add(o.order.prettyPrintEsp() + " -> No se pueden invertir puntos políticos en una Potencia Mayor");
-							}
-							else if ((o.order.getAmount() < 1) || (o.order.getAmount() > 100))
-							{
-								errors.add(o.order.prettyPrintEsp() + " -> La cantidad de puntos políticos que desea invertir es errónea");
-							}
-						break;
-						
-						case MOVE:
-							s = map.get(o.order.getNormalizedSource());
-							t = map.get(o.order.getNormalizedTarget());
-							
-							if (s == null)
-							{
-								errors.add(o.order.prettyPrintEsp() + " -> El territorio origen no existe");
-							}
-							else if (t == null)
-							{
-								errors.add(o.order.prettyPrintEsp() + " -> El territorio destino no existe");
-							}
-							else if (!s.isAdjacentToTerritory(t.getNormalizedName()))
-							{
-								errors.add(o.order.prettyPrintEsp() + " -> Los territorios origen y destino no son adyacentes");
-							}
-							else if ((s.getType() == Territory.LAND) && (o.order.getUnit() == Unit.NAVY))
-							{
-								
-								errors.add(o.order.prettyPrintEsp() + " -> Una flota no puede estar en un territorio terrestre");
-							}
-							else if ((s.getType() == Territory.SEA) && (o.order.getUnit() == Unit.ARMY))
-							{
-								
-								errors.add(o.order.prettyPrintEsp() + " -> Un ejército no puede estar en un territorio marítimo");
-							}
-							else if ((t.getType() == Territory.LAND) && (o.order.getUnit() == Unit.NAVY))
-							{
-								
-								errors.add(o.order.prettyPrintEsp() + " -> Una flota no puede mover a un territorio terrestre");
-							}
-							else if ((t.getType() == Territory.SEA) && (o.order.getUnit() == Unit.ARMY))
-							{
-								errors.add(o.order.prettyPrintEsp() + " -> Un ejército no puede mover a un territorio marítimo");
-							}
-						break;
-		
-						case SUPPORT:
-							s = map.get(o.order.getNormalizedSource());
-							t = map.get(o.order.getNormalizedTarget());
-							
-							if (s == null)
-							{
-								errors.add(o.order.prettyPrintEsp() + " -> El territorio origen no existe");
-							}
-							else if (t == null)
-							{
-								errors.add(o.order.prettyPrintEsp() + " -> El territorio destino no existe");
-							}
-							else if (!s.isAdjacentToTerritory(t.getNormalizedName()))
-							{
-								errors.add(o.order.prettyPrintEsp() + " -> Los territorios origen y destino no son adyacentes");
-							}
-							else if ((s.getType() == Territory.LAND) && (o.order.getUnit() == Unit.NAVY))
-							{
-								
-								errors.add(o.order.prettyPrintEsp() + " -> Una flota no puede estar en un territorio terrestre");
-							}
-							else if ((s.getType() == Territory.SEA) && (o.order.getUnit() == Unit.ARMY))
-							{
-								
-								errors.add(o.order.prettyPrintEsp() + " -> Un ejército no puede estar en un territorio marítimo");
-							}
-							else if ((t.getType() == Territory.LAND) && (o.order.getUnit() == Unit.NAVY))
-							{
-								
-								errors.add(o.order.prettyPrintEsp() + " -> Una flota no puede apoyar a un territorio terrestre");
-							}
-							else if ((t.getType() == Territory.SEA) && (o.order.getUnit() == Unit.ARMY))
-							{
-								errors.add(o.order.prettyPrintEsp() + " -> Un ejército no puede apoyar a un territorio marítimo");
-							}
-						break;
+						errors.add(o.order.prettyPrintEsp() + " -> No puede declararse la paz a sí mismo");
+					}
+					else if (countries.get((o.order.getNormalizedTarget())) == null)
+					{
+						errors.add(o.order.prettyPrintEsp() + " -> El país al que intenta declarar la paz no existe");
 					}
 				break;
-				case WRONG_ORDER_TYPE:
-					errors.add(o.order.prettyPrintEsp() + " -> El tipo de orden no es válido en ese contexto");
+			
+				case DECLARE_WAR:
+					if (o.order.getNormalizedTarget().equals(normalizedPlayerName))
+					{
+						errors.add(o.order.prettyPrintEsp() + " -> No puede declararse la guerra a sí mismo");
+					}
+					else if (countries.get((o.order.getNormalizedTarget())) == null)
+					{
+						errors.add(o.order.prettyPrintEsp() + " -> El país al que intenta declarar la guerra no existe");
+					}
 				break;
-				case MISSING_UNIT:
-					errors.add(o.order.prettyPrintEsp() + " -> Falta indicar el tipo de unidad");
+				
+				case POLITIC_POINTS:
+					c = countries.get(o.order.getNormalizedTarget());
+					if (c == null)
+					{
+						errors.add(o.order.prettyPrintEsp() + " -> El país en el que intenta invertir puntos políticos no existe");
+					}
+					else if (c.getPowerStatus() == PowerStatus.MAJOR)
+					{
+						errors.add(o.order.prettyPrintEsp() + " -> No se pueden invertir puntos políticos en una Potencia Mayor");
+					}
+					else if ((o.order.getAmount() < 1) || (o.order.getAmount() > 100))
+					{
+						errors.add(o.order.prettyPrintEsp() + " -> La cantidad de puntos políticos que desea invertir es errónea");
+					}
 				break;
-				case MISSING_SOURCE:
-					errors.add(o.order.prettyPrintEsp() + " -> Falta el origen de la orden");
+				
+				case MOVE:
+					s = map.get(o.order.getNormalizedSource());
+					t = map.get(o.order.getNormalizedTarget());
+					
+					if (s == null)
+					{
+						errors.add(o.order.prettyPrintEsp() + " -> El territorio origen no existe");
+					}
+					else if (t == null)
+					{
+						errors.add(o.order.prettyPrintEsp() + " -> El territorio destino no existe");
+					}
+					else if (!s.isAdjacentToTerritory(t.getNormalizedName()))
+					{
+						errors.add(o.order.prettyPrintEsp() + " -> Los territorios origen y destino no son adyacentes");
+					}
+					else if ((s.getType() == Territory.LAND) && (o.order.getUnit() == Unit.NAVY))
+					{
+						
+						errors.add(o.order.prettyPrintEsp() + " -> Una flota no puede estar en un territorio terrestre");
+					}
+					else if ((s.getType() == Territory.SEA) && (o.order.getUnit() == Unit.ARMY))
+					{
+						
+						errors.add(o.order.prettyPrintEsp() + " -> Un ejército no puede estar en un territorio marítimo");
+					}
+					else if ((t.getType() == Territory.LAND) && (o.order.getUnit() == Unit.NAVY))
+					{
+						
+						errors.add(o.order.prettyPrintEsp() + " -> Una flota no puede mover a un territorio terrestre");
+					}
+					else if ((t.getType() == Territory.SEA) && (o.order.getUnit() == Unit.ARMY))
+					{
+						errors.add(o.order.prettyPrintEsp() + " -> Un ejército no puede mover a un territorio marítimo");
+					}
 				break;
-				case MISSING_TARGET:
-					errors.add(o.order.prettyPrintEsp() + " -> Falta el objetivo de la orden");
-				break;
-				case MISSING_AMOUNT:
-					errors.add(o.order.prettyPrintEsp() + " -> Falta la cantidad");
+
+				case SUPPORT:
+					s = map.get(o.order.getNormalizedSource());
+					t = map.get(o.order.getNormalizedTarget());
+					
+					if (s == null)
+					{
+						errors.add(o.order.prettyPrintEsp() + " -> El territorio origen no existe");
+					}
+					else if (t == null)
+					{
+						errors.add(o.order.prettyPrintEsp() + " -> El territorio destino no existe");
+					}
+					else if (!s.isAdjacentToTerritory(t.getNormalizedName()))
+					{
+						errors.add(o.order.prettyPrintEsp() + " -> Los territorios origen y destino no son adyacentes");
+					}
+					else if ((s.getType() == Territory.LAND) && (o.order.getUnit() == Unit.NAVY))
+					{
+						
+						errors.add(o.order.prettyPrintEsp() + " -> Una flota no puede estar en un territorio terrestre");
+					}
+					else if ((s.getType() == Territory.SEA) && (o.order.getUnit() == Unit.ARMY))
+					{
+						
+						errors.add(o.order.prettyPrintEsp() + " -> Un ejército no puede estar en un territorio marítimo");
+					}
+					else if ((t.getType() == Territory.LAND) && (o.order.getUnit() == Unit.NAVY))
+					{
+						
+						errors.add(o.order.prettyPrintEsp() + " -> Una flota no puede apoyar a un territorio terrestre");
+					}
+					else if ((t.getType() == Territory.SEA) && (o.order.getUnit() == Unit.ARMY))
+					{
+						errors.add(o.order.prettyPrintEsp() + " -> Un ejército no puede apoyar a un territorio marítimo");
+					}
 				break;
 			}
 			
