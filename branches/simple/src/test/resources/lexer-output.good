@@ -1,0 +1,65 @@
+line:1 col:1 --E--ARMY--
+token: line 1, column 1, sym: 5
+line:1 col:3 --Istria--WORD--
+token: line 1, column 3, sym: 3, value: 'Istria'
+line:1 col:10 --M--MOVE--
+token: line 1, column 10, sym: 7
+line:1 col:12 --Venezia--WORD--
+token: line 1, column 12, sym: 3, value: 'Venezia'
+line:1 col:19 --
+--EOL--
+token: line 1, column 19, sym: 2
+line:2 col:1 --E--ARMY--
+token: line 2, column 1, sym: 5
+line:2 col:3 --Viena--WORD--
+token: line 2, column 3, sym: 3, value: 'Viena'
+line:2 col:9 --A--SUPPORT--
+token: line 2, column 9, sym: 8
+line:2 col:11 --Tirol--WORD--
+token: line 2, column 11, sym: 3, value: 'Tirol'
+line:2 col:16 --
+--EOL--
+token: line 2, column 16, sym: 2
+line:3 col:1 --F--NAVY--
+token: line 3, column 1, sym: 6
+line:3 col:3 --Mar--WORD--
+token: line 3, column 3, sym: 3, value: 'Mar'
+line:3 col:7 --del--WORD--
+token: line 3, column 7, sym: 3, value: 'del'
+line:3 col:11 --Norte--WORD--
+token: line 3, column 11, sym: 3, value: 'Norte'
+line:3 col:17 --M--MOVE--
+token: line 3, column 17, sym: 7
+line:3 col:19 --Mar--WORD--
+token: line 3, column 19, sym: 3, value: 'Mar'
+line:3 col:23 --Báltico--WORD--
+token: line 3, column 23, sym: 3, value: 'Báltico'
+line:3 col:31 --
+--EOL--
+token: line 3, column 31, sym: 2
+line:4 col:1 --PP--POLITIC_POINTS--
+token: line 4, column 1, sym: 9
+line:4 col:4 --5--NUMBER--
+token: line 4, column 4, sym: 4, value: '5'
+line:4 col:6 --Palatinado--WORD--
+token: line 4, column 6, sym: 3, value: 'Palatinado'
+line:4 col:16 --
+--EOL--
+token: line 4, column 16, sym: 2
+line:5 col:1 --G--DECLARE_WAR--
+token: line 5, column 1, sym: 10
+line:5 col:3 --Francia--WORD--
+token: line 5, column 3, sym: 3, value: 'Francia'
+line:5 col:10 --
+--EOL--
+token: line 5, column 10, sym: 2
+line:6 col:1 --P--DECLARE_PEACE--
+token: line 6, column 1, sym: 11
+line:6 col:3 --España--WORD--
+token: line 6, column 3, sym: 3, value: 'España'
+line:6 col:10 --
+--EOL--
+token: line 6, column 10, sym: 2
+line:7 col:1 ----EOF--
+token: line 7, column 1, sym: 0
+No errors.

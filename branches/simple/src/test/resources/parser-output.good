@@ -1,0 +1,8 @@
+> line 1, order type: MOVE, unit: 'ARMY', source: 'Istria', target: 'Venezia'
+> line 2, order type: SUPPORT, unit: 'ARMY', source: 'Viena', target: 'Tirol'
+> line 3, order type: MOVE, unit: 'NAVY', source: 'Mar del Norte', target: 'Mar Báltico'
+> line 4, order type: POLITIC_POINTS, target: 'Palatinado', amount: '5'
+> line 5, order type: DECLARE_WAR, target: 'Francia'
+> line 6, order type: DECLARE_PEACE, target: 'España'
+
+No errors.
