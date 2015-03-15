@@ -1,0 +1,1 @@
+Validator and compilator of PBeM Hegemony.
